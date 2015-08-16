@@ -1,0 +1,41 @@
+package main
+
+import (
+	"fm-fuel-service/models"
+	"fmt"
+	"log"
+
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+)
+
+func main() {
+	session, err := mgo.Dial("localhost")
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	// Optional. Switch the session to a monotonic behavior.
+	session.SetMode(mgo.Monotonic, true)
+
+	c := session.DB("test").C("people")
+	var p models.Person
+	p.Name("AMIR TEMUR")
+	p.Phone("+99893 397777777")
+	if p.Error() != nil {
+		log.Fatal("set err", p.Error())
+	}
+	err = c.Insert(&p)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	result := models.Person{}
+	err = c.Find(bson.M{"name": "Mirolim"}).One(&result)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Result Person after find", result)
+}

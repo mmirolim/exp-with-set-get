@@ -1,0 +1,4 @@
+conf.toml
+*.*~
+*.swp
+*.test
