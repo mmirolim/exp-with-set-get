@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fm-fuel-service/models"
 	"fmt"
 	"log"
+
+	"github.com/mmirolim/exp-with-set-get/models"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
