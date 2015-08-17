@@ -2,3 +2,5 @@ conf.toml
 *.*~
 *.swp
 *.test
+*.*#
+*.#*

@@ -22,21 +22,20 @@ func main() {
 
 	c := session.DB("test").C("people")
 	var p models.Person
-	p.Name("AMIR TEMUR")
-	p.Phone("+99893 397777777")
-	if p.Error() != nil {
-		log.Fatal("set err", p.Error())
-	}
+	p.Name = "Alexsandr"
+	p.Phone = "+998937777777"
+	p.Created("Mirolim")
+
 	err = c.Insert(&p)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	result := models.Person{}
-	err = c.Find(bson.M{"name": "Mirolim"}).One(&result)
+	err = c.Find(bson.M{"base.createdby": "Mirolim"}).One(&result)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Result Person after find", result)
+	fmt.Printf("person %+v \n", result)
 }
